@@ -181,7 +181,19 @@ class Person {
     }
     
     func describe() {
-        print("Гражданин \(name), в возрасте лет \(age).")
+        let t1 = age % 10
+        let t2 = age % 100
+        var strAge: String
+        
+        if t1 == 1 && t2 != 11 {
+            strAge = "год"
+        } else if t1 >= 2 && t1 <= 4 && (t2 < 10 || t2 >= 20 ) {
+            strAge = "года"
+        } else {
+            strAge = "лет"
+        }
+        
+        print("Гражданин \(name), в возрасте \(age) \(strAge).")
     }
 }
 
@@ -242,29 +254,29 @@ class Professor: Person {
 //Функция работы классов. Для проверки обработки ошибко расскоментить отладочные строки.
 
 func exam (){
-    let studentsTemp: [(String, Int, String)] =   [("Родион Романович Раскольников", 23, "S56891"),
+    let students: [(String, Int, String)] =   [("Родион Романович Раскольников", 23, "S56891"),
                                                    ("Заметов Александр Григорьевич", 22, "S55780"),
                                                    ("Разумихин Дмитрий Прокофьевич", 23, "S01466"),
 //                                                 ("Амалия Ивановна Липпевехзель", 0, "O01240"),
                                                    ("Софья Семёновна Мармеладова", 18, "P68869"),
                                                    ("Авдотья Романовна Раскольникова", 22, "S56890")]
     
-    let professorsTemp: [(String, Int, String)] = [("Лужин Пётр Петрович", 45, "Гражданское право"),
+    let professors: [(String, Int, String)] = [("Лужин Пётр Петрович", 45, "Гражданское право"),
                                                    ("Свидригайлов Аркадий Иванович", 50, "Теория игр"),
                                                    ("Лебезятников Андрей Семёнович", 41, "Административное право"),
 //                                                 ("", 56, "Теория множеств и дискретная математика"),
                                                    ("Докучаев Порфирий Петрович", 35, "Уголовное право")]
     
-    for studentString in studentsTemp {
-        guard let temp = Student(name: studentString.0, age: studentString.1, studentID: studentString.2) else {
+    for student in students {
+        guard let temp = Student(name: student.0, age: student.1, studentID: student.2) else {
             print("Ошибка вводных данных.")// Шеуф всё пропало, они сымают гыпс!
             return
         }
         temp.describe()
     }
-    for professorString in professorsTemp {
-        guard let temp = Professor(name: professorString.0, age: professorString.1, subject: professorString.2) else {
-            print ("Ошибка вводных данных. Stop in code, stop programma, it's my life...")
+    for professor in professors {
+        guard let temp = Professor(name: professor.0, age: professor.1, subject: professor.2) else {
+            print ("Ошибка вводных данных. Stop in code, stop programma, stop computer, it's my life...")
             return
         }
         temp.describe()
