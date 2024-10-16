@@ -1,5 +1,5 @@
 //
-//  main.swift
+//  swift. 9th stream
 //  Lesson_9
 //
 //  Created by Evgeny Mastepan on 16.10.2024.
@@ -60,12 +60,51 @@ class Manager: Employee {
     }
 }
 
-func myEmp() {
-    guard let my = Manager(name: "гражданин Сухомлинский Пётр Кузьмич", salary: 10000, teamSize: 20) else {
+/* Создайте подкласс Director, который также наследует от Manager:
+ ○ Дополнительное свойство:
+ ■ budget: Double — бюджет директора.
+ ○ Инициализатор:
+ ■ Используйте guard, чтобы убедиться, что бюджет больше нуля.
+ ■ Вызовите инициализатор суперкласса.
+ ○ Переопределите метод describe(), добавив информацию о бюджете (вызовите super.describe() и добавьте новые данные).
+ Пример использования:
+ Создайте объекты классов Employee, Manager и Director. Вызовите метод describe() для каждого из них. Ожидаемое поведение:
+ ● При создании объекта класса Employee, должно выводиться имя и зарплата.
+ ● При создании объекта класса Manager, должно выводиться имя, зарплата и размер команды.
+ ● При создании объекта класса Director, должно выводиться имя, зарплата, размер команды и бюджет. */
+
+class Director: Manager {
+    let budget: Double
+    init?(name: String, salary: Double, teamSize: Int, budget: Double){
+        self.budget = budget
+        guard budget > 0 else {
+            print("Бюджет должен быть положительным.")
+            return nil
+        }
+        super.init(name: name, salary: salary, teamSize: teamSize)
+    }
+    override func describe() {
+        super.describe()
+        print("Размер бюджета - \(budget).")
+    }
+}
+
+func example() {
+    guard let worker = Employee(name: "Привалов Александр Иванович", salary: 5000) else {
         print ("Неверный ввод данных")
         return
     }
-    my.describe()
+    guard let manager = Manager(name: "Горыныч Наина Киевна", salary: 10000, teamSize: 21) else {
+        print ("Неверный ввод данных")
+        return
+    }
+    guard let director = Director(name: "Выбегалло Амвросий Амбруазович", salary: 25000, teamSize: 237, budget: 500000) else {
+        print ("Неверный ввод данных")
+        return
+    }
+    worker.describe()
+    manager.describe()
+    director.describe()
 }
 
-myEmp()
+example()
